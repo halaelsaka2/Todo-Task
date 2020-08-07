@@ -16,6 +16,13 @@ export default (state = initialState, action) => {
             return {
                 ...state, todos: todos
             };
+        case actionTypes.DELETE_TODO:
+            let toDos = [...state.todos];
+            const newtodos = toDos.filter((todo) => todo.id !== action.todo.id);
+            console.log(newtodos,"indeletereducer");
+            return {
+                ...state, todos: newtodos
+            };
         default:
             return state;
     }

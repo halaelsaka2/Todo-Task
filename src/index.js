@@ -3,15 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./Containers/App";
 import "./Style/style.css"
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../src/Redux/store"
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
       <App />
-    </BrowserRouter>
   </Provider>
 );
 

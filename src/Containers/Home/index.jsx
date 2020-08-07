@@ -4,44 +4,51 @@ import { connect } from "react-redux";
 
 import AddTodoList from "../../Components/AddTodoForm";
 import List from "../../Components/List";
-import { getAllToDos,AddToDO} from "../../Redux/actions/todosActions";
+import {
+  getAllToDos,
+  AddToDO,
+  DeleteToDO,
+} from "../../Redux/actions/todosActions";
 
 class Home extends Component {
   state = {
-    todo:{
-      name:"",
-      status:""
+    todo: {
+      name: "",
+      status: "",
     },
-    todos:[]
+    todos: [],
   };
-  async componentDidMount() {
-    await this.props.getAllTodos();
-    let todos=this.props.todos
-    this.setState({todos})
+  componentDidMount=()=> {
+    this.props.getAllTodos();
   }
-  AddTodo=async (event) => {
+  AddTodo = (event) => {
     event.preventDefault();
-    const todo= {...this.state.todo}
-    this.props.AddToDO(todo)
-    
+    const todo = { ...this.state.todo };
+    this.props.AddToDO(todo);
   };
   addInputHandler = (event) => {
     const { value, name } = event.target;
     const todo = { ...this.state.todo, [name]: value };
-    const todos = [ ...this.state.todos,todo];
-    this.setState({ todo,todos });
-    console.log(this.state.todo);
-  };  
+    this.setState({ todo });
+  };
+  deleteHandler = (event) => {
+    const { id } = event.target;
+    this.props.deleteToDo(id);
+  };
 
   render() {
     return (
       <React.Fragment>
-        <AddTodoList addToDO={this.AddTodo}
-        toDoValue={this.state.todo.name}
-        inputHandler={this.addInputHandler}
+        <AddTodoList
+          addToDO={this.AddTodo}
+          toDoValue={this.state.todo.name}
+          inputHandler={this.addInputHandler}
         />
-        <List toDoList={this.state.todos}
-        inputHandler={this.updateInputHandler} />
+        <List
+          toDoList={this.props.todos}
+          inputHandler={this.updateInputHandler}
+          deleteHandler={this.deleteHandler}
+        />
       </React.Fragment>
     );
   }
@@ -51,6 +58,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getAllTodos: () => dispatch(getAllToDos()),
     AddToDO: (todo) => dispatch(AddToDO(todo)),
+    deleteToDo: (id) => dispatch(DeleteToDO(id)),
   };
 };
 

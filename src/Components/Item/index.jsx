@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Input from "../Input";
 
-const Item = ({toDoValue,inputHandler,id}) => (
+const Item = ({toDoValue,inputHandler,deleteHandler,id}) => (
   <div className="item">
     <Input
      name="name"
@@ -15,10 +15,13 @@ const Item = ({toDoValue,inputHandler,id}) => (
     <i
       className="far fa-edit edit"
       style={{ color: "green", fontSize: "2rem" }}
+      // onClick={editHandel}
     ></i>
     <i
       className="far fa-trash-alt remove"
       style={{ color: "red", fontSize: "2rem" }}
+      onClick={deleteHandler}
+      id={id}
     ></i>
   </div>
 );

@@ -26,3 +26,16 @@ export const AddToDoRes = (todo) => {
         todo
     };
 };
+export const DeleteToDO = (id) => {
+    return async (dispatch) => {
+        const todo = await Api.deleteToDO(id)
+        dispatch(DeleteToDoRes(todo));
+    };
+};
+
+export const DeleteToDoRes = (todo) => {
+    return {
+        type: actionTypes.DELETE_TODO,
+        todo
+    };
+};
