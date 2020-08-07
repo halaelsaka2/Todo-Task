@@ -17,13 +17,13 @@ export async function GetToDoById(id) {
 export async function AddToDO(todo) {
     const {
         data
-    } = await axios.post(`${url}addToDO`,todo);
+    } = await axios.post(`${url}addToDO`, todo);
     return data;
 }
-export async function EditToDO(id) {
+export async function EditToDO(id, todo) {
     const {
         data
-    } = await axios.get(`${url}${id}`);
+    } = await axios.patch(`${url}${id}`, todo);
     return data;
 }
 export async function deleteToDO(id) {

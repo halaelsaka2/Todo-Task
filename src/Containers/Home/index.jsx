@@ -8,6 +8,7 @@ import {
   getAllToDos,
   AddToDO,
   DeleteToDO,
+  EditToDO,
 } from "../../Redux/actions/todosActions";
 
 class Home extends Component {
@@ -17,10 +18,11 @@ class Home extends Component {
       status: "",
     },
     todos: [],
+    clicked: false,
   };
-  componentDidMount=()=> {
+  componentDidMount = () => {
     this.props.getAllTodos();
-  }
+  };
   AddTodo = (event) => {
     event.preventDefault();
     const todo = { ...this.state.todo };
@@ -35,7 +37,26 @@ class Home extends Component {
     const { id } = event.target;
     this.props.deleteToDo(id);
   };
-
+  updateInputHandler = (event) => {
+    const { value, id } = event.target;
+    const todos = this.props.todos;
+    const todo = todos.find((todo) => todo.id === id);
+    todo.name = value;
+    this.setState({ todos });
+  };
+  saveHandler = async (event) => {
+    const todo = this.props.todos.find(todo=>todo.id===event.target.id)
+    await this.props.editTodo(event.target.id,todo);
+    this.editHandel();
+  };
+  editHandel = () => {
+    let clicked = this.state.clicked;
+    clicked=!clicked;
+    this.setState({clicked})
+  };
+  cancleHandler=()=>{
+    this.editHandel()
+  }
   render() {
     return (
       <React.Fragment>
@@ -48,6 +69,10 @@ class Home extends Component {
           toDoList={this.props.todos}
           inputHandler={this.updateInputHandler}
           deleteHandler={this.deleteHandler}
+          editHandel={this.editHandel}
+          clicked={this.state.clicked}
+          saveHandler={this.saveHandler}
+          cancleHandler={this.cancleHandler}
         />
       </React.Fragment>
     );
@@ -59,6 +84,7 @@ const mapDispatchToProps = (dispatch) => {
     getAllTodos: () => dispatch(getAllToDos()),
     AddToDO: (todo) => dispatch(AddToDO(todo)),
     deleteToDo: (id) => dispatch(DeleteToDO(id)),
+    editTodo: (id,todo) => dispatch(EditToDO(id,todo)),
   };
 };
 
