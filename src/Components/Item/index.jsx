@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import Input from "../Input";
 
-const Item = ({toDoName,toDoValue,onChange,id}) => (
+const Item = ({toDoValue,inputHandler,id}) => (
   <div className="item">
     <Input
-     name={toDoName}
+     name="name"
      className="item_input"
      type="text"
      value={toDoValue}
-     onChange={onChange}
+     onChange={inputHandler}
      id={id}
     />
     <i
@@ -23,7 +23,6 @@ const Item = ({toDoName,toDoValue,onChange,id}) => (
   </div>
 );
 Item.propTypes = {
-  toDoName:PropTypes.string,
   toDoValue:PropTypes.string,
   onChange:PropTypes.func,
   id:PropTypes.string,

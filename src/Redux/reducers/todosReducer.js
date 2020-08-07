@@ -10,6 +10,12 @@ export default (state = initialState, action) => {
             return {
                 ...state, todos: action.todos
             };
+        case actionTypes.ADD_TODO:
+            let todos = [...state.todos]
+            todos.push(action.todo);
+            return {
+                ...state, todos: todos
+            };
         default:
             return state;
     }

@@ -10,8 +10,19 @@ export const getAllTodosRes = (todos) => {
 export const getAllToDos = () => {
     return async (dispatch) => {
         const todos = await Api.GetAllToDos();
-        console.log(todos,"inAction");
         dispatch(getAllTodosRes(todos));
     };
 };
+export const AddToDO = (todo) => {
+    return async (dispatch) => {
+        const newTodo = await Api.AddToDO(todo);
+        dispatch(AddToDoRes(newTodo));
+    };
+};
 
+export const AddToDoRes = (todo) => {
+    return {
+        type: actionTypes.ADD_TODO,
+        todo
+    };
+};
