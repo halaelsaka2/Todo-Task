@@ -9,6 +9,7 @@ import {
   AddToDO,
   DeleteToDO,
   EditToDO,
+  EditStatus
 } from "../../Redux/actions/todosActions";
 
 class Home extends Component {
@@ -16,17 +17,18 @@ class Home extends Component {
     todo: {
       name: "",
       status: "",
+      clicked: false,
     },
-    todos: [],
-    clicked: false,
   };
   componentDidMount = () => {
     this.props.getAllTodos();
   };
-  AddTodo = (event) => {
+  AddTodo = async(event) => {
     event.preventDefault();
     const todo = { ...this.state.todo };
-    this.props.AddToDO(todo);
+    await this.props.AddToDO(todo);
+    todo.name=""
+    this.setState({todo})
   };
   addInputHandler = (event) => {
     const { value, name } = event.target;
@@ -39,23 +41,27 @@ class Home extends Component {
   };
   updateInputHandler = (event) => {
     const { value, id } = event.target;
-    const todos = this.props.todos;
-    const todo = todos.find((todo) => todo.id === id);
+    const todo = this.props.todos.find((todo) => todo.id === id);
     todo.name = value;
-    this.setState({ todos });
+    this.setState({ todo });
   };
   saveHandler = async (event) => {
-    const todo = this.props.todos.find(todo=>todo.id===event.target.id)
-    await this.props.editTodo(event.target.id,todo);
-    this.editHandel();
+    console.log(event.target.id);
+    const todo = this.props.todos.find((todo) => todo.id === event.target.id);
+    this.props.editClicked(todo.id)
+    await this.props.editTodo( event.target.id,todo);
   };
-  editHandel = () => {
-    let clicked = this.state.clicked;
-    clicked=!clicked;
-    this.setState({clicked})
+  editHandel = (id) => {
+    this.props.editClicked(id)
   };
-  cancleHandler=()=>{
-    this.editHandel()
+  cancleHandler = (id) => {
+    this.editHandel(id);
+  };
+  checkedHandler=(event)=>{
+    const todo = this.props.todos.find((todo) => todo.id === event.target.id);
+    todo.isDone=!todo.isDone
+    console.log(todo);
+     this.props.editStatus(event.target.id, todo);
   }
   render() {
     return (
@@ -70,9 +76,10 @@ class Home extends Component {
           inputHandler={this.updateInputHandler}
           deleteHandler={this.deleteHandler}
           editHandel={this.editHandel}
-          clicked={this.state.clicked}
+          // clicked={this.state.clicked}
           saveHandler={this.saveHandler}
           cancleHandler={this.cancleHandler}
+          checkedHandler={this.checkedHandler}
         />
       </React.Fragment>
     );
@@ -84,7 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     getAllTodos: () => dispatch(getAllToDos()),
     AddToDO: (todo) => dispatch(AddToDO(todo)),
     deleteToDo: (id) => dispatch(DeleteToDO(id)),
-    editTodo: (id,todo) => dispatch(EditToDO(id,todo)),
+    editTodo: (id, todo) => dispatch(EditToDO(id, todo)),
+    editStatus: (id, todo) => dispatch(EditStatus(id, todo)),
+    editClicked:(id)=>dispatch({type:"todoclick", payload:id})
   };
 };
 

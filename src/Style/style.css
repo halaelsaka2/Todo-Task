@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     height: 100%;
     background-color: #111;	
     box-sizing: border-box;
@@ -19,19 +19,19 @@ h1 {
 	font-family: 'Hind', sans-serif;
 }
 
-.title{
+.title {
 	color: lime;
 	text-transform: uppercase;
 	font-weight: 800;
 }
 
-.inputDiv{
+.inputDiv {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.input{
+.input {
     padding: 0.5rem 1rem;
     outline: none;
     border: none;
@@ -43,7 +43,7 @@ h1 {
     font-size: 1.15rem;
 }
 
-.add{
+.add {
 	outline: none;
     border: none;
     height: 50px;
@@ -56,11 +56,11 @@ h1 {
     margin: 0.25rem;
 }
 
-.add:hover{
+.add:hover {
 	opacity: 0.7;
 }
 
-.container{
+.container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -69,22 +69,26 @@ h1 {
 	margin-top: 2rem;
 }
 
-.item{
+.item {
 	padding: 0.5rem;
 	border-bottom: 4px solid #fff;
 	margin-bottom: 1.5rem;
+	width: 30rem;
+    display: flex;
+    justify-content: space-between;
 }
 
-.item_input{
+.item_input {
 	background: none;
 	outline: none;
 	border: none;
 	color: #fff;
 	font-size: 1.4rem;
 	width: 245px;
+	display: inline-flex;
 }
 
-.edit{
+.edit {
 	background: none;
 	outline: none;
 	border: none;
@@ -95,7 +99,7 @@ h1 {
 	cursor: pointer;
 }
 
-.remove{
+.remove {
 	background: none;
 	outline: none;
 	border: none;
@@ -103,4 +107,11 @@ h1 {
 	font-size: 1.4rem;
 	font-family: 'Hind', sans-serif;
 	cursor: pointer;
+}
+.checkbox_input {
+margin-right: .5rem;
+cursor: pointer;
+height: 1rem;
+width: 2rem;
+
 }

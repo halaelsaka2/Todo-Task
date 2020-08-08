@@ -43,7 +43,6 @@ export const DeleteToDoRes = (todo) => {
 export const EditToDO = (id,todo) => {
     return async (dispatch) => {
         const newTodo = await Api.EditToDO(id,todo);
-        console.log(newTodo,"updatedtodoinaction");
         dispatch(EditToDoRes(newTodo));
     };
 };
@@ -51,6 +50,20 @@ export const EditToDO = (id,todo) => {
 export const EditToDoRes = (todo) => {
     return {
         type: actionTypes.EDIT_TODO,
+        todo
+    };
+};
+
+export const EditStatus = (id,todo) => {
+    return async (dispatch) => {
+        const newTodo = await Api.EditToDO(id,todo);
+        dispatch(EditStatusRes(newTodo));
+    };
+};
+
+export const EditStatusRes = (todo) => {
+    return {
+        type: actionTypes.EDIT_STATUS,
         todo
     };
 };

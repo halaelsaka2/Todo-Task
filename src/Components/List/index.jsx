@@ -6,10 +6,11 @@ const List = ({
   toDoList,
   inputHandler,
   deleteHandler,
-  clicked,
+  // clicked,
   editHandel,
   saveHandler,
   cancleHandler,
+  checkedHandler
 }) => (
   <div className="container">
     {toDoList.length > 0 &&
@@ -20,10 +21,12 @@ const List = ({
           inputHandler={inputHandler}
           id={toDoItem.id}
           deleteHandler={deleteHandler}
-          clicked={clicked}
+          clicked={toDoItem.clicked}
           editHandel={editHandel}
           saveHandler={saveHandler}
           cancleHandler={cancleHandler}
+          checked={toDoItem.isDone}
+          checkedHandler={checkedHandler}
         />
       ))}
   </div>
