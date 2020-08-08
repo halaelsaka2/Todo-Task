@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Input from "../Input";
+import {
+  DeleteToDO,
+  EditToDO,
+  EditStatus
+} from "../../Redux/actions/todosActions";
 
 class Item extends Component {
   state = {
@@ -9,29 +15,36 @@ class Item extends Component {
   componentDidMount() {
     this.setState({ updatedName: this.props.toDoValue });
   }
-  handleSave=()=> {
-    const newTodo = {...this.props.todo,name:this.state.updatedName}
-    console.log(this.props.id,newTodo);
-    this.props.saveHandler(this.props.id,newTodo)
+  handleSave=(todo)=> {
+    todo = {...this.props.todo,name:this.state.updatedName}
+    this.props.editClicked(this.props.id)
+    this.props.editTodo(this.props.id,todo);
   }
   handelChange = (event) => {
     this.setState({updatedName:event.target.value})
   };
-  handelCancel=()=>{
+  handelCancel=(id)=>{
     this.setState({ updatedName: this.props.toDoValue });
-    this.props.cancleHandler()
+    this.props.editClicked(id)
+  }
+  editHandel = (id) => {
+    this.props.editClicked(id)
+  };
+
+  deleteHandler = (event) => {
+    const { id } = event.target;
+    this.props.deleteToDo(id);
+  };
+  checkedHandler=(event)=>{
+    const todo = this.props.todos.find((todo) => todo.id === event.target.id);
+    todo.isDone=!todo.isDone
+     this.props.editStatus(event.target.id, todo);
   }
   render() {
     const {
       toDoValue,
-      inputHandler,
-      deleteHandler,
       id,
       clicked,
-      editHandel,
-      saveHandler,
-      cancleHandler,
-      checkedHandler,
       checked,
     } = this.props;
     return (
@@ -39,7 +52,7 @@ class Item extends Component {
         <Input
           type="checkbox"
           className="checkbox_input"
-          onChange={checkedHandler}
+          onChange={this.checkedHandler}
           checked={checked}
           id={id}
         />
@@ -53,10 +66,10 @@ class Item extends Component {
               onChange={this.handelChange}
               id={id}
             />
-            <button className="edit" id={id} onClick={this.handleSave}>
+            <button className="edit" id={id} onClick={()=>this.handleSave(this.props.todo)}>
               Save
             </button>
-            <button className="remove" onClick={() => cancleHandler(id)}>
+            <button className="remove" onClick={() => this.handelCancel(id)}>
               Cancel
             </button>
           </React.Fragment>
@@ -68,13 +81,13 @@ class Item extends Component {
             <i
               className="far fa-edit edit"
               style={{ color: "green", fontSize: "2rem" }}
-              onClick={() => editHandel(id)}
+              onClick={() => this.editHandel(id)}
               id={id}
             ></i>
             <i
               className="far fa-trash-alt remove"
               style={{ color: "red", fontSize: "2rem" }}
-              onClick={deleteHandler}
+              onClick={this.deleteHandler}
               id={id}
             ></i>
           </React.Fragment>
@@ -89,5 +102,18 @@ Item.propTypes = {
   onChange: PropTypes.func,
   id: PropTypes.string,
 };
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteToDo: (id) => dispatch(DeleteToDO(id)),
+    editTodo: (id, todo) => dispatch(EditToDO(id, todo)),
+    editStatus: (id, todo) => dispatch(EditStatus(id, todo)),
+    editClicked:(id)=>dispatch({type:"todoclick", payload:id})
+  };
+};
 
-export default Item;
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todos.todos,
+  };
+};
+export default  connect(mapStateToProps, mapDispatchToProps)(Item);

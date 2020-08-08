@@ -57,14 +57,6 @@ export default (state = initialState, action) => {
                 clicked:!todo.clicked
             }:todo);
 
-            // let oldtodo = state.todos.find((todo) => todo.id === id);
-            // let todoindex = state.todos.indexOf(oldtodo);
-            // let newToDos = [...state.todos];
-            // oldtodo.clicked = !oldtodo.clicked
-            // newToDos[todoindex] = oldtodo;
-
-            // console.log(oldtodo, "todoclicked");
-
             return {
                 ...state, todos: newTodos
             };

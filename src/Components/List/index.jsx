@@ -4,13 +4,6 @@ import Item from "../Item";
 
 const List = ({
   toDoList,
-  inputHandler,
-  deleteHandler,
-  // clicked,
-  editHandel,
-  saveHandler,
-  cancleHandler,
-  checkedHandler
 }) => (
   <div className="container">
     {toDoList.length > 0 &&
@@ -19,15 +12,9 @@ const List = ({
           todo={toDoItem}
           key={toDoItem.id}
           toDoValue={toDoItem.name}
-          inputHandler={inputHandler}
           id={toDoItem.id}
-          deleteHandler={deleteHandler}
           clicked={toDoItem.clicked}
-          editHandel={editHandel}
-          saveHandler={saveHandler}
-          cancleHandler={cancleHandler}
           checked={toDoItem.isDone}
-          checkedHandler={checkedHandler}
         />
       ))}
   </div>

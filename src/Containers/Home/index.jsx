@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import { connect } from "react-redux";
-
 import AddTodoList from "../../Components/AddTodoForm";
 import List from "../../Components/List";
 import {
@@ -17,7 +15,6 @@ class Home extends Component {
     todo: {
       name: "",
       status: "",
-      clicked: false,
     },
   };
   componentDidMount = () => {
@@ -35,32 +32,6 @@ class Home extends Component {
     const todo = { ...this.state.todo, [name]: value };
     this.setState({ todo });
   };
-  deleteHandler = (event) => {
-    const { id } = event.target;
-    this.props.deleteToDo(id);
-  };
-  updateInputHandler = (event) => {
-    const { value, id } = event.target;
-    const todo = this.props.todos.find((todo) => todo.id === id);
-    todo.name = value;
-    this.setState({ todo });
-  };
-  saveHandler = async (id,todo) => {
-    this.props.editClicked(id)
-    await this.props.editTodo(id,todo);
-  };
-  editHandel = (id) => {
-    this.props.editClicked(id)
-  };
-  cancleHandler = (id) => {
-    this.editHandel(id);
-  };
-  checkedHandler=(event)=>{
-    const todo = this.props.todos.find((todo) => todo.id === event.target.id);
-    todo.isDone=!todo.isDone
-    console.log(todo);
-     this.props.editStatus(event.target.id, todo);
-  }
   render() {
     return (
       <React.Fragment>
@@ -71,13 +42,6 @@ class Home extends Component {
         />
         <List
           toDoList={this.props.todos}
-          inputHandler={this.updateInputHandler}
-          deleteHandler={this.deleteHandler}
-          editHandel={this.editHandel}
-          // clicked={this.state.clicked}
-          saveHandler={this.saveHandler}
-          cancleHandler={this.cancleHandler}
-          checkedHandler={this.checkedHandler}
         />
       </React.Fragment>
     );
