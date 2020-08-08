@@ -45,11 +45,9 @@ class Home extends Component {
     todo.name = value;
     this.setState({ todo });
   };
-  saveHandler = async (event) => {
-    console.log(event.target.id);
-    const todo = this.props.todos.find((todo) => todo.id === event.target.id);
-    this.props.editClicked(todo.id)
-    await this.props.editTodo( event.target.id,todo);
+  saveHandler = async (id,todo) => {
+    this.props.editClicked(id)
+    await this.props.editTodo(id,todo);
   };
   editHandel = (id) => {
     this.props.editClicked(id)

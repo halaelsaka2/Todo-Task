@@ -16,6 +16,7 @@ const List = ({
     {toDoList.length > 0 &&
       toDoList.map((toDoItem, index) => (
         <Item
+          todo={toDoItem}
           key={toDoItem.id}
           toDoValue={toDoItem.name}
           inputHandler={inputHandler}
