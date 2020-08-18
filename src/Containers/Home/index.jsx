@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import AddTodoList from "../../Components/AddTodoForm";
 import List from "../../Components/List";
-import {
-  getAllToDos,
-  AddToDO,
-  DeleteToDO,
-  EditToDO,
-  EditStatus
-} from "../../Redux/actions/todosActions";
+import { getAllToDos, AddToDO } from "../../Redux/actions/todosActions";
 
 class Home extends Component {
   state = {
@@ -20,12 +14,12 @@ class Home extends Component {
   componentDidMount = () => {
     this.props.getAllTodos();
   };
-  AddTodo = async(event) => {
+  AddTodo = async (event) => {
     event.preventDefault();
     const todo = { ...this.state.todo };
     await this.props.AddToDO(todo);
-    todo.name=""
-    this.setState({todo})
+    todo.name = "";
+    this.setState({ todo });
   };
   addInputHandler = (event) => {
     const { value, name } = event.target;
@@ -40,9 +34,7 @@ class Home extends Component {
           toDoValue={this.state.todo.name}
           inputHandler={this.addInputHandler}
         />
-        <List
-          toDoList={this.props.todos}
-        />
+        <List toDoList={this.props.todos} />
       </React.Fragment>
     );
   }
@@ -52,10 +44,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getAllTodos: () => dispatch(getAllToDos()),
     AddToDO: (todo) => dispatch(AddToDO(todo)),
-    deleteToDo: (id) => dispatch(DeleteToDO(id)),
-    editTodo: (id, todo) => dispatch(EditToDO(id, todo)),
-    editStatus: (id, todo) => dispatch(EditStatus(id, todo)),
-    editClicked:(id)=>dispatch({type:"todoclick", payload:id})
   };
 };
 

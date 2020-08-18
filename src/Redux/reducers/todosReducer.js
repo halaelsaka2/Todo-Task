@@ -6,8 +6,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
     let todos;
-    let oldTodo;
-    let todoIndex;
     let newTodos = []
     switch (action.type) {
         case actionTypes.GET_ALL_TODOS:
@@ -31,22 +29,17 @@ export default (state = initialState, action) => {
                 ...state, todos: newtodos
             };
         case actionTypes.EDIT_TODO:
-            oldTodo = state.todos.find(
-                todo => todo.id === action.todo.id
-            );
-            todoIndex = state.todos.indexOf(oldTodo);
-            newTodos = [...state.todos];
-            newTodos[todoIndex] = action.todo;
+            newTodos = state.todos.map(todo => todo.id === action.todo.id ? {
+                ...action.todo,
+                clicked: !todo.clicked
+            } : todo);
             return {
                 ...state, todos: newTodos
             };
         case actionTypes.EDIT_STATUS:
-            oldTodo = state.todos.find(
-                todo => todo.id === action.todo.id
-            );
-            todoIndex = state.todos.indexOf(oldTodo);
-            newTodos = [...state.todos];
-            newTodos[todoIndex] = action.todo;
+            newTodos = state.todos.map(todo => todo.id === action.todo.id ?
+                action.todo :
+                todo);
             return {
                 ...state, todos: newTodos
             };
@@ -54,8 +47,8 @@ export default (state = initialState, action) => {
             const id = action.payload;
             newTodos = state.todos.map(todo => todo.id === id ? {
                 ...todo,
-                clicked:!todo.clicked
-            }:todo);
+                clicked: !todo.clicked
+            } : todo);
 
             return {
                 ...state, todos: newTodos
