@@ -70,7 +70,7 @@ class Item extends Component {
             >
               Save
             </button>
-            <button className="remove" onClick={() => this.handelCancel(id)}>
+            <button className="remove" onClick={() => this.cancelHandeler(id)}>
               Cancel
             </button>
           </React.Fragment>
