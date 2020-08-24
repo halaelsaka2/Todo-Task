@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "https://todolist-back.herokuapp.com/todo/";
+const url = "https://todolist-back.herokuapp.com/toDo/";
 
 export async function GetAllToDos() {
     const {
