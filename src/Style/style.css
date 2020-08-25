@@ -41,7 +41,7 @@ h1 {
     width: 35%;
     /* margin: 0.25rem; */
     transition: .5s;
-    font-size: .8rem;
+	font-size: .8rem;
 }
 
 .add {
@@ -115,4 +115,13 @@ cursor: pointer;
 height: 1rem;
 width: 10%;
 
+}
+@media (max-width : 600px) {
+	.input{
+		width: 50%;
+		
+	}
+	.add{
+		width: 8%;
+	}
 }
