@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import App from "./Containers/App";
 import "./Style/style.css"
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import "../node_modules/@fortawesome/react-fontawesome";
+import "../node_modules/@fortawesome/free-solid-svg-icons";
 import { Provider } from "react-redux";
 import store from "../src/Redux/store"
 
