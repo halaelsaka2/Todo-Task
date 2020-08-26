@@ -80,14 +80,14 @@ class Item extends Component {
               {toDoValue}
             </span>
             <i
-              className="far fa-edit edit"
-              style={{ color: "green", fontSize: "2rem" }}
+              className="far fa-edit"
+              style={{ color: "green", fontSize: "1.5rem" }}
               onClick={() => this.editHandeler(id)}
               id={id}
             ></i>
             <i
-              className="far fa-trash-alt remove"
-              style={{ color: "red", fontSize: "2rem" }}
+              className="far fa-trash-alt"
+              style={{ color: "red", fontSize: "1.5rem" }}
               onClick={this.deleteHandeler}
               id={id}
             ></i>
