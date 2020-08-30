@@ -46,13 +46,6 @@ class Item extends Component {
     const { toDoValue, id, clicked, checked } = this.props;
     return (
       <div className="item">
-        <Input
-          type="checkbox"
-          className="checkbox_input"
-          onChange={this.checkedHandler}
-          checked={checked}
-          id={id}
-        />
         {clicked ? (
           <React.Fragment>
             <Input
@@ -76,6 +69,13 @@ class Item extends Component {
           </React.Fragment>
         ) : (
           <React.Fragment>
+            <Input
+              type="checkbox"
+              className="checkbox_input"
+              onChange={this.checkedHandler}
+              checked={checked}
+              id={id}
+            />
             <span className="item_input" type="text" id={id}>
               {toDoValue}
             </span>
